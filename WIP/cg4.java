@@ -11,63 +11,20 @@ class cg4 extends JPanel {
 		f.setSize(600,600);   
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		f.setVisible(true);
-		Color myBG = new Color(247,255,176);
+		Color myBG = new Color(0,0,0);
 		f.setBackground(myBG);
 	}
 	public void paintComponent(Graphics g) {
-		midpointEllipse(g,100,100,50,50);
-	}
-	public void bresenhamLine (Graphics g,int x1, int y1, int x2, int y2) {
-    	int x = x1, y = y1;
-    	int dx = x2 - x1;
-    	int dy = y2 - y1;
-    	int D = 2 * dy - dx;
-    	if (x1 != x2) {
-    		for (; x <= x2 ; x++) {
-    		plot(g,x,y);
-	    		if (D >= 0) {
-	    			y++;
-	    			D = D - 2 * dx;
-	    		}
-	    		D = D + 2 * dy;
-	    	}
-    	}
-    	else {
-    		D = 2 * dx - dy;
-    		for (; y <= y2 ; y++) {
-    		plot(g,x,y);
-	    		if (D >= 0) {
-	    			x++;
-	    			D = D - 2 * dy;
-	    		}
-    			D = D + 2 * dx;
-    		}
-    	}
-    }
-    public void midpointCircle(Graphics g,int xc, int yc, int r) {
-		int x = 0;
-		int y = r;
-		int Dx = 2 * x;
-		int Dy = 2 * y;
-		int D = 1 - r;
-		while (x <= y) {
-			plot(g, x+xc, y+yc);
-			plot(g, y+xc, x+yc);
-			plot(g, y+xc,-x+yc);
-			plot(g, x+xc,-y+yc);
-			plot(g,-x+xc,-y+yc);
-			plot(g,-y+xc,-x+yc);
-			plot(g,-y+xc, x+yc);
-			plot(g,-x+xc, y+yc);
-			x++;
-			Dx += 2;
-			D = D + Dx + 1;
-			if (D >= 0) {
-				y--;
-				Dy -= 2;
-				D = D - Dy;
-			}
+		fillE(g,300,300,300,300,255,255,255);
+		g.setColor(Color.BLACK);
+		for (int i = 1; i <= 10; i++) {
+			midpointEllipse(g,300,300,300,50*i);
+			midpointEllipse(g,300,300,50*i,300);
 		}
+
+	}
+	private void plot (Graphics g, int x, int y) {
+		g.fillRect(x, y, 2, 2);
 	}
 	public void midpointEllipse(Graphics g,int xc, int yc, int a, int b) {
 		int a2 = a*a, b2 = b*b;
@@ -113,31 +70,15 @@ class cg4 extends JPanel {
 				} 
 			}
 	}
-	private void plot (Graphics g, int x, int y) {
-		g.fillRect(x, y, 2, 2);
-	}
-	public void fillP(Graphics g, int x1, int y1, int x2, int y2, int x3, int y3, int R, int G, int B) {
-		int x[] = {x1, x2, x3};
-		int y[] = {y1, y2, y3};
-		Color myColor = new Color(R,G,B);
-		g.setColor(myColor);
-		g.fillPolygon(x,y,3);
-	}
-	public void fillC(Graphics g, int x, int y, int radius, int R, int G, int B) {
-		Color myColor = new Color(R,G,B);
-		g.setColor(myColor);
-		for (int i=0; i <= radius; i++) {
-			midpointCircle(g,x,y,i);
-		}
-	}
 	public void fillE(Graphics g, int x, int y, int radius1,int radius2, int R, int G, int B) {
 		Color myColor = new Color(R,G,B);
 		g.setColor(myColor);
-		for (int i=0; i <= radius1; i++) {
-			for (int j=0; j<= radius2 ; j++) {
-				midpointEllipse(g,x,y,j,i);
-				//if (i==radius1 || j==radius2) break;
-			}
+		int i=1,j=1;
+		for (i=1; i <= radius1; i++) {
+			midpointEllipse(g,x,y,j,i);
+		}
+		for (j=1; j<= radius2 ; j++) {
+			midpointEllipse(g,x,y,j,i);
 		}
 	}
 }
