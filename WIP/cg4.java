@@ -11,15 +11,17 @@ class cg4 extends JPanel {
 		f.setSize(600,600);   
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		f.setVisible(true);
-		Color myBG = new Color(0,0,0);
+		Color myBG = new Color(255,255,255);
 		f.setBackground(myBG);
 	}
 	public void paintComponent(Graphics g) {
-		fillE(g,300,300,300,300,255,255,255);
-		g.setColor(Color.BLACK);
-		for (int i = 1; i <= 10; i++) {
-			midpointEllipse(g,300,300,300,50*i);
-			midpointEllipse(g,300,300,50*i,300);
+		// fillE(g,300,300,300,300,255,255,255);
+		// g.setColor(Color.RED);
+		for (int i = 1; i <= 80; i++) {
+			//g.setColor(Color.WHITE);
+			midpointEllipse(g,300,300,300,10*i);
+			//g.setColor(Color.BLACK);
+			midpointEllipse(g,300,300,10*i,300);
 		}
 
 	}
