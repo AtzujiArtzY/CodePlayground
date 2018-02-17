@@ -1,47 +1,22 @@
+
 import java.awt.*;
 import java.awt.image.*;
 import javax.swing.*;
 import java.util.*;
 
-class cg5 extends JPanel implements Runnable {
+class car extends JPanel {
+    public BufferedImage buffer = new BufferedImage(601, 601, BufferedImage.TYPE_INT_ARGB);
+    public Graphics2D g3 = buffer.createGraphics();
 	public static void main(String[] args) {
-		cg5 m = new cg5();
-		JFrame f = new JFrame();
-		f.add(m);
-		f.setTitle("Graphics");
-		f.setSize(600,600);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
-		(new Thread(m)).start();
+		car m = new car();
+        JFrame f =  new JFrame();   
+        f.add(m);   
+        f.setTitle("LowPoly"); 
+        f.setSize(600,600);   
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        f.setVisible(true);
 	}
-	public double circleMove = 0;
-	public double wheelRotate = 0;
-
 	public void paintComponent(Graphics g) {
-		
-		Graphics2D g2 = (Graphics2D) g;
-		//Draw BG
-		g2.setColor(Color.WHITE);
-		g2.fillRect(0, 0, 600, 600);
-		car(g); //Draw Car
-		
-		//Draw back wheel
-		g2.rotate(wheelRotate, 135, 366);
-		wheel(g); 
-		g2.rotate(-wheelRotate, 135, 366);
-		//Draw front wheel
-		g2.rotate(wheelRotate, 338, 366);
-		g2.translate(203,0); //Move Whell
-		wheel(g); 
-		g2.translate(-100,0);
-		g2.rotate(-wheelRotate, 338, 366);
-		
-		
-		//g2.drawRect(200, 200, 200, 200);
-
-		
-	}
-	void car(Graphics g) {
 		Color cBody = new Color(239,65,54);
 		Color cTrim = new Color(190,30,45);
 		Color gray = new Color(64,64,64);
@@ -86,39 +61,19 @@ class cg5 extends JPanel implements Runnable {
 			int x6[] = {383,381,369,368,365,360,351,339,333,322,315,311,310,165,164,162,156,147,133,123,115,111,109,108,109,101, 98,105,107,111,115,120,126,136,145,151,156,162,166,170,173,300,302,305,308,312,317,323,329,335,343,350,358,364,369,374};
 			int y6[] = {353,370,373,366,355,347,342,339,340,344,351,360,370,370,364,355,346,341,339,341,348,354,362,369,374,372,353,352,346,341,336,333,330,328,328,330,334,339,346,354,364,364,357,349,343,338,333,330,328,328,329,330,334,339,344,352};
 			g.fillPolygon(x6,y6,x6.length);
-	}
-	void wheel(Graphics g) {
-		drawC(g,135,366,23,54,54,54);
-		drawC(g,135,366,18,255,255,255);
-		drawC(g,135,366,16,82,84,88);
-		g.setColor(Color.WHITE);
-		int x8[] = {137,138,147,149,141,153,153,141,149,147,138,137,134,133,124,122,130,118,118,130,122,124,133,134};
-		int y8[] = {348,361,352,354,364,364,367,368,378,379,371,383,384,371,380,378,368,367,365,364,354,352,361,348};
-		g.fillPolygon(x8,y8,x8.length);
-	}
-	public void run() {
-		double lastTime = System.currentTimeMillis();
-		double currentTime, elapsedTime;
-		double startTime = System.currentTimeMillis();
-		while (true) {
-			currentTime = System.currentTimeMillis();
-			elapsedTime = currentTime - lastTime;
-		//TODO: update logics
-		//Display
-			circleMove += 50.0 * elapsedTime / 1000;
-			wheelRotate += 1000.0 * elapsedTime / 1000;
-			repaint();
-			lastTime = currentTime;
-		//take a little nap: 60fps
-			try {
-				Thread.sleep(1000/60);
-			}
-			catch (InterruptedException e) {
-				System.err.println(e);
-			}
-		}
-	}
-	public void midpointCircle(Graphics g,int xc, int yc, int r) {
+			
+
+
+	//Wheel
+			drawC(g,135,366,23,54,54,54);
+			drawC(g,135,366,18,255,255,255);
+			drawC(g,135,366,16,82,84,88);
+			g.setColor(Color.WHITE);
+			int x8[] = {137,138,147,149,141,153,153,141,149,147,138,137,134,133,124,122,130,118,118,130,122,124,133,134};
+			int y8[] = {348,361,352,354,364,364,367,368,378,379,371,383,384,371,380,378,368,367,365,364,354,352,361,348};
+			g.fillPolygon(x8,y8,x8.length);
+    }
+    public void midpointCircle(Graphics g,int xc, int yc, int r) {
 		int x = 0;
 		int y = r;
 		int Dx = 2 * x;
@@ -146,7 +101,7 @@ class cg5 extends JPanel implements Runnable {
 	private void plot (Graphics g, int x, int y) {
     	g.fillRect(x, y, 2, 2);
     }
-   public void drawC(Graphics g, int x, int y, int radius, int R, int G, int B) {
+    public void drawC(Graphics g, int x, int y, int radius, int R, int G, int B) {
     	Color myColor = new Color(R,G,B);
 		g.setColor(myColor);
 		for (int i=0; i <= radius; i++) {
