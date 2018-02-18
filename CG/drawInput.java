@@ -21,7 +21,7 @@ class drawInput {
 				//Write
 				writer.write("\t\tdraw(g,"+x+","+y+","+rad+", "+r+","+g+","+b+");");
 				writer.write(System.getProperty("line.separator"));
-			} 
+			}
 		}
 		catch (Exception e) {
             e.printStackTrace();
