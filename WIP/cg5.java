@@ -22,7 +22,6 @@ class cg5 extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g2.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
 		//Color
 			Color gc0 = new Color(246,243,169);
 			Color gc1 = new Color(224,201,149);
@@ -53,17 +52,19 @@ class cg5 extends JPanel implements Runnable {
 			g2.setPaint(skyColor);
 			g2.fillRect(0, 0, 600, 280);
 		//Sun
-			g2.translate(-smove,smove);
+			double sun = smove;
+			g2.translate(-sun,sun);
 			drawC(g,179,254,63,255,213,99);
-			g2.translate(smove,-smove);
+			g2.translate(sun,-sun);
 		//Moon
-			g2.translate(-mmove,-smove);
+			double moon = mmove;
+			g2.translate(-moon,-sun);
 			moon(g);
-			g2.translate(mmove,smove);
+			g2.translate(moon,sun);
 		//Cloud
-			g2.translate(-smove,0);
+			g2.translate(-sun,0);
 			cloud(g);
-			g2.translate(smove,0);
+			g2.translate(sun,0);
 		//Mountain-Praew
 			g.setColor(mountain);
 			int xm[] = {29, 74, 96,117,152,158,193,209,216,222,227,261,262,273,283,289,298,309,340,381,413,451,470,486,502,530,551,564,579,600,600,340,0,0};
@@ -89,9 +90,10 @@ class cg5 extends JPanel implements Runnable {
 			g2.setColor(road);
 			g2.fillRect(0,325,600,108);
 			//Road strip
-				g2.translate(-move*10,0);
+				double roadM = move;
+				g2.translate(-roadM*10,0);
 				roadStrip(g);
-				g2.translate(move*10,0);
+				g2.translate(roadM*10,0);
 			g2.setColor(sRoad);
 			g2.fillRect(0,389,80,8);
 			g2.fillRect(0,409,316,12);
@@ -138,16 +140,17 @@ class cg5 extends JPanel implements Runnable {
 				g.fillPolygon(xcl,ycl,xcl.length);
 			}
 		//Draw Car
+			double wheelRotate1 = wheelRotate ;
 			g2.translate(-20,30); //Move car
 			car(g);
 			//Draw back wheel
-				g2.rotate(wheelRotate, 135, 366);
+				g2.rotate(wheelRotate1, 135, 366);
 				wheel1(g); 
-				g2.rotate(-wheelRotate, 135, 366);
+				g2.rotate(-wheelRotate1, 135, 366);
 			//Draw front wheel
-				g2.rotate(wheelRotate, 338, 366);
+				g2.rotate(wheelRotate1, 338, 366);
 				wheel2(g); 
-				g2.rotate(-wheelRotate, 338,366);
+				g2.rotate(-wheelRotate1, 338,366);
 			g2.translate(20,-30); 
 	}
 	void roadStrip(Graphics g) {
