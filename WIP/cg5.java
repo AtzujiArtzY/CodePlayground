@@ -22,6 +22,11 @@ class cg5 extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//Thread Buffer(Fix hiccup)
+			double smove1 = smove;
+			double mmove1 = mmove;
+			double move1 = move;
+			double wheelRotate1 = wheelRotate;
 		//Color
 			Color gc0 = new Color(246,243,169);
 			Color gc1 = new Color(224,201,149);
@@ -51,20 +56,18 @@ class cg5 extends JPanel implements Runnable {
 			}
 			g2.setPaint(skyColor);
 			g2.fillRect(0, 0, 600, 280);
-		//Sun
-			double sun = smove;
-			g2.translate(-sun,sun);
+		//smove1
+			g2.translate(-smove1,smove1);
 			drawC(g,179,254,63,255,213,99);
-			g2.translate(sun,-sun);
-		//Moon
-			double moon = mmove;
-			g2.translate(-moon,-sun);
-			moon(g);
-			g2.translate(moon,sun);
+			g2.translate(smove1,-smove1);
+		//mmove1
+			g2.translate(-mmove1,-smove1);
+			mmove1(g);
+			g2.translate(mmove1,smove1);
 		//Cloud
-			g2.translate(-sun,0);
+			g2.translate(-smove1,0);
 			cloud(g);
-			g2.translate(sun,0);
+			g2.translate(smove1,0);
 		//Mountain-Praew
 			g.setColor(mountain);
 			int xm[] = {29, 74, 96,117,152,158,193,209,216,222,227,261,262,273,283,289,298,309,340,381,413,451,470,486,502,530,551,564,579,600,600,340,0,0};
@@ -90,10 +93,9 @@ class cg5 extends JPanel implements Runnable {
 			g2.setColor(road);
 			g2.fillRect(0,325,600,108);
 			//Road strip
-				double roadM = move;
-				g2.translate(-roadM*10,0);
+				g2.translate(-move1*10,0);
 				roadStrip(g);
-				g2.translate(roadM*10,0);
+				g2.translate(move1*10,0);
 			g2.setColor(sRoad);
 			g2.fillRect(0,389,80,8);
 			g2.fillRect(0,409,316,12);
@@ -133,14 +135,13 @@ class cg5 extends JPanel implements Runnable {
 				g2.fillRect(-10,-10,610,610);
 			}
 		//Add Car Night light
-			if (count>=780) { //Night
+			if (count>=780) { //Night time
 				g.setColor(cLight);
 				int xcl[] = {329,600,600,344};
 				int ycl[] = {346,308,425,362};
 				g.fillPolygon(xcl,ycl,xcl.length);
 			}
 		//Draw Car
-			double wheelRotate1 = wheelRotate ;
 			g2.translate(-20,30); //Move car
 			car(g);
 			//Draw back wheel
@@ -256,7 +257,7 @@ class cg5 extends JPanel implements Runnable {
 		int yw[] = {348,361,352,354,364,364,367,368,378,379,371,383,384,371,380,378,368,367,365,364,354,352,361,348};
 		g.fillPolygon(xw,yw,xw.length);
 	}
-	void moon(Graphics g) {
+	void mmove1(Graphics g) {
 		drawC(g,539,343,38, 208,209,209);
 		drawC(g,539,341,36, 228,229,229);
 		drawC(g,539,338,34, 250,251,251);
