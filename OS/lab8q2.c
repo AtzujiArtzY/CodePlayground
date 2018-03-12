@@ -1,7 +1,9 @@
-1#include<stdio.h>
+/* NOT WORKING */
+#include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include <sys/wait.h>
 #define SIZE 1024
 int main(int argc, char const *argv[]){
 	int pfd[2];
@@ -13,7 +15,7 @@ int main(int argc, char const *argv[]){
 		printf("Usage lab8_pipe <number>\n");
 		exit(0);
 	}
-	//Question 6
+	num = atoi(argv[1]); //Question 6
 	if (pipe(pfd) == -1) {
 		perror("pipe failed");
 		exit(1);
@@ -23,34 +25,30 @@ int main(int argc, char const *argv[]){
 		exit(2);
 	}
 	if (pid == 0) {	/*Child*/
-		close(pfd[0]);
-		//Question 7
+		char *str; 
+		close(pfd[0]); //Question 7
 		printf("Child: I am calculating\n");
 		int i, sum =0;
 		for (i = 1; i <= num; i++) {
 			sum += i;
 		}
-		//Question 8
+		sprintf(str,"%d",sum);
+		strcpy(buf,str); //Question 8
 		printf("Child: I am sending data\n");
-		write(pfd[1], &sum, sizeof(sum));
-		//Question 9
+		write(pfd[1], buf, strlen(buf)+1); //Question 9
 		printf("Child: Goodbye\n");
-		//Question 10
-		close(pfd[1]);
+		close(pfd[1]); //Question 10
 	}
 	else { 	/*Parent*/
-		close(pfd[1]);
-		//Question 11
+		wait(0); //Question 11
 		printf("Parent: waiting for my child\n");
-		//Question 12
-		//Question 13
+		close(pfd[1]); //Question 12
+		while((nread = read (pfd[0],buf,SIZE)) != 0); //Question 13
 		int sum;
 		sum = atoi(buf);
-		read(pfd[0], &sum, sizeof(sum));
 		printf("Parent: Sum from my child is %d\n",sum );
 		printf("Parent: Goodbye\n");
-		//Question 14
-		close(pfd[0]);
+		close(pfd[0]); //Question 14
 	}
 	exit(0);
 }
