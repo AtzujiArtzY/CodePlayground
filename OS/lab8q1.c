@@ -10,7 +10,7 @@ int main(void){
 	pid = fork();
 	if (pid==0) {
 		printf("Child: Sleeping for 5 seconds\n");
-		sleep(2);
+		sleep(9);
 		printf("Child sending SIGALRM\n");  //Question2
 		kill(getppid(), SIGALRM);  //Question3
 		printf("Child: Bye bye\n");
