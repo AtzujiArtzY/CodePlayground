@@ -1,4 +1,4 @@
-class lab71 {
+class lab7_1 {
 	public static void main(String[] args){
 		int a[][] = {{5,6,7},{4,8,9}};
 		int b[][] = {{6,4},{5,7},{1,1}};

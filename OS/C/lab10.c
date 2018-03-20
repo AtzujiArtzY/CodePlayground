@@ -48,5 +48,3 @@
 /*380*/	    pthread_exit(NULL);
 			int sem_destroy(myMutex);
 /*390*/	}
-
-

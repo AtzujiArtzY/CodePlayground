@@ -1,4 +1,4 @@
-/* NOT WORKING */
+/* NOT WORKING as intended */
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
