@@ -10,17 +10,18 @@
 		
 /*80*/	void * Count(void * a) {
 /*90*/	    int i, tmp;
-			int sem_wait(sem_t *myMutex);
+			int sem_wait(myMutex);
 /*100*/	    for(i = 0; i < NITER; i++)   {
 /*110*/	        tmp = cnt;      /* copy the global cnt locally */
 /*120*/	        tmp = tmp+1;    /* increment the local copy */
 /*130*/	        cnt = tmp;      /* store the local value into the global cnt */ 
 /*140*/	    }
-			int sem_post(sem_t *myMutex);
+			int sem_post(myMutex);
+			return 0;
 /*150*/	}
 
 /*160*/	int main(int argc, char * argv[]) {
-			int sem_init(sem_t *myMutex, int pshared, unsigned int value);
+			int sem_init(myMutex, 0,  1);
 /*170*/	    pthread_t tid1, tid2;
 			
 /*180*/	    if(pthread_create(&tid1, NULL, Count, NULL)) {
@@ -45,7 +46,7 @@
 /*370*/	        printf("\n OK! cnt is [%d]\n", cnt);
   
 /*380*/	    pthread_exit(NULL);
-			int sem_destroy(sem_t *myMutex);
+			int sem_destroy(myMutex);
 /*390*/	}
 
 
