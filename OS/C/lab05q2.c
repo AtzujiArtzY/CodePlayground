@@ -11,19 +11,14 @@ while(sel != 0){
 	printf("  1: ls \n  2: ps \n  3: who \n  0 to Exit\n");
 	scanf("%d",&sel);
 	pid = fork();
-		if (pid == 0) { //Chlid
-			if (sel == 1){
-				execlp("ls","ls",NULL);
-			}
-			else if(sel == 2){
-				execlp("ps","ps",NULL);
-			}
-			else if(sel == 3){
-				execlp("who","who",NULL);
-			}
-		}
-		else  {   //Parent
-      		wait(NULL);
-		}
+	if (pid == 0) { //Chlid
+		if (sel == 1)
+			execlp("ls","ls",NULL);
+		else if(sel == 2)
+			execlp("ps","ps",NULL);
+		else if(sel == 3)
+			execlp("who","who",NULL);
 	}
+	else   //Parent
+      		wait(NULL);
 }
